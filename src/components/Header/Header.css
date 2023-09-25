@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header_theme_landing {
+  background-color: #DDDEE3;
+  width: 100%;
+}
+
+.header_theme_main {
+  background-color: #FAFAFA;
+  width: 100%;
+}
+
+.header__cont {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1140px;
+  padding: 18px 70px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .header__cont {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__cont {
+    padding: 18px 14px;
+  }
+}

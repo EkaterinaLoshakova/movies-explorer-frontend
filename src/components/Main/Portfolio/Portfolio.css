@@ -1,0 +1,119 @@
+.portfolio {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #FAFAFA;
+}
+
+.portfolio__container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 70px;
+}
+
+.portfolio__title {
+  color: #A0A0A0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+  padding-top: 100px;
+}
+
+.portfolio__list {
+  list-style: none;
+  padding: 50px 0 115px;
+  margin: 0;
+}
+
+.portfolio__element {
+  border-bottom: 1px solid #E8E8E8;
+  padding: 20px 0 9px;
+}
+
+.portfolio__link-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.portfolio__element:first-child {
+  padding-top: 0;
+}
+
+.portfolio__element:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.portfolio__link-name {
+  color: #000;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+  margin: 0;
+}
+
+.portfolio__link-arrow {
+  color: #000;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 60px;
+  letter-spacing: -1.2px;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .portfolio__container {
+    padding: 0 50px;
+  }
+
+  .portfolio__title {
+    padding-top: 90px;
+  }
+
+  .portfolio__link-name {
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+
+  .portfolio__list {
+    padding-bottom: 80px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__container {
+    padding: 0 14px;
+  }
+
+  .portfolio__title {
+    padding-top: 70px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .portfolio__list {
+    padding: 40px 0 70px;
+  }
+  .portfolio__link-name {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+  }
+  .portfolio__link-arrow {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+  }
+  .portfolio__element {
+    padding-bottom: 19px;
+  }
+}

@@ -1,0 +1,126 @@
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  background: #FFF;
+  box-shadow: 0 3px 14px 0 rgba(0, 0, 0, 0.08);
+  margin: 70px 0 69px;
+  width: 100%;
+}
+
+.search-form__input-container {
+  padding: 16px 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.search-form__search-icon {
+  display: flex;
+  padding-right: 10px;
+}
+
+.search-form__search-input {
+  color: #A0A0A0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 10px 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  flex-grow: 1;
+}
+
+.search-form__search-input:focus {
+  outline: #3456F3 solid 1px;
+}
+
+.search-form__submit {
+  display: block;
+  border: none;
+  min-width: 80px;
+  height: 34px;
+  padding: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../images/find.svg");
+}
+
+.search-form__checkbox-container {
+  padding: 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-left: 1px solid #CBCBCB;
+  max-width: 226px;
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.search-form__checkbox {
+  position: absolute;
+  appearance: none;
+}
+
+.search-form__checkbox-svg {
+  padding-right: 14px;
+}
+
+@media screen and (max-width: 989px) {
+  .search-form {
+    margin: 80px 0 109px;
+  }
+
+  .search-form__checkbox-container {
+    max-width: 207px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search-form {
+    width: 100%;
+    flex-direction: column;
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+    margin-bottom: unset;
+  }
+
+  .search-form__input-container {
+    box-sizing: border-box;
+    box-shadow: 0 3px 14px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+    padding: 19px;
+  }
+
+  .search-form__search-icon {
+    display: none;
+    padding: 0;
+  }
+
+  .search-form__search-input {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .search-form__checkbox-container {
+    border-left: none;
+    padding: 45px 0 44px;
+    font-size: 11px;
+    line-height: 18px;
+  }
+
+  .search-form__checkbox-svg {
+    padding-right: 13px;
+  }
+}
