@@ -1,0 +1,15 @@
+export const INTERNAL_SERVER_ERROR = "На сервере произошла ошибка.";
+export const PROFILE_UPDATE_ERROR = "При обновлении профиля произошла ошибка.";
+export const LAPTOP_L_INIT_CARDS = 16;
+export const LAPTOP_INIT_CARDS = 12;
+export const TABLET_INIT_CARDS = 8;
+export const MOBILE_INIT_CARDS = 5;
+export const LAPTOP_L_MORE_CARDS = 4;
+export const LAPTOP_MORE_CARDS = 3;
+export const TABLET_MORE_CARDS = 2;
+export const MOBILE_MORE_CARDS = 2;
+export const LAPTOP_L_RESOLUTION = 1280;
+export const LAPTOP_RESOLUTION = 990;
+export const TABLET_RESOLUTION = 768;
+export const MOBILE_RESOLUTION = 320;
+export const SHORT_MOVIE = 40;

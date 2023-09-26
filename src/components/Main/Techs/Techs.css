@@ -1,0 +1,155 @@
+.techs {
+  display: flex;
+  background-color: #F5F5F5;;
+  width: 100%;
+  justify-content: center;
+}
+
+.techs__container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 70px;
+  align-items: center;
+}
+
+.techs__title {
+  margin: 0;
+  padding: 100px 0 23px;
+  border-bottom: #000 1px solid;
+  color: #000;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.88px;
+  width: 100%;
+}
+
+.techs__about-title {
+  color: #000;
+  text-align: center;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+  padding: 90px 0 26px;
+  margin: 0;
+}
+
+.techs__about-subtitle {
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+  margin: 0;
+  max-width: 460px;
+}
+
+.techs__list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 100px 0;
+}
+
+.techs__list-element {
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+  background-color: #E8E8E8;
+  padding: 21px 0 22px;
+  width: 90px;
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .techs__list-element {
+    width: 84px;
+  }
+
+  .techs__container {
+    padding: 0 50px;
+  }
+
+  .techs__title {
+    padding: 90px 0 23px;
+  }
+
+  .techs__about-title {
+    padding: 80px 0 22px;
+  }
+
+  .techs__about-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    max-width: 460px;
+    letter-spacing: -0.48px;
+  }
+
+  .techs__list-element {
+    padding: 21px 0 21px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .techs__list {
+    padding: 83px 0 90px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .techs__list-element {
+    width: 84px;
+    flex-wrap: wrap;
+  }
+
+  .techs__container {
+    padding: 0 18px;
+  }
+
+  .techs__list {
+    flex-wrap: wrap;
+  }
+
+  .techs__title {
+    padding: 70px 0 28px;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.72px;
+  }
+
+  .techs__about-title {
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    padding: 60px 0 24px;
+  }
+  .techs__about-subtitle {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.44px;
+  }
+  .techs__list{
+    padding: 50px 0 70px;
+    max-width: 178px;
+    justify-content: flex-start;
+  }
+
+  .techs__list-element {
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.48px;
+    padding: 21px 0;
+  }
+
+}
