@@ -2,12 +2,31 @@ import "./Register.css"
 import {Logo} from "../Logo/Logo";
 import useFormAndValidation from "../../hooks/useFormAndValidation";
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import {
+  CONFLICT_MESSAGE,
+  CONFLICT_STATUS,
+  INTERNAL_ERROR_STATUS,
+  INTERNAL_SERVER_ERROR,
+  REGISTRATION_ERROR
+} from "../../utils/constants";
 
-export function Register() {
+export function Register({isRegister}) {
   const {values, handleChange, errors, isValid} = useFormAndValidation();
+  const [error, setError] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
+    isRegister(values.name, values.email, values.password)
+      .catch(error => {
+        if (error === CONFLICT_STATUS) {
+          setError(CONFLICT_MESSAGE);
+        } else if (error === INTERNAL_ERROR_STATUS) {
+          setError(INTERNAL_SERVER_ERROR);
+        } else {
+          setError(REGISTRATION_ERROR);
+        }
+      })
   }
 
   return (
@@ -62,7 +81,7 @@ export function Register() {
             <span className="registration__input-error">{errors["password"]}</span>
           </label>
           <div className="registration__footer">
-            <p className="registration__response-error"></p>
+            <p className="registration__response-error">{error}</p>
             <button
               type="submit"
               className={`registration__submit button-hover${isValid ? '' : ' registration__submit_disabled'}`}

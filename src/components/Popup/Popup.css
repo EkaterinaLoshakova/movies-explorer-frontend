@@ -1,0 +1,48 @@
+.popup {
+  display: none;
+  position: fixed;
+  background-color: rgb(237, 247, 237);
+  align-items: center;
+  justify-content: center;
+  top: 70px;
+  right: 24px;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+  opacity: .8;
+  overflow: hidden;
+}
+
+.popup_type_error {
+  background-color: rgb(253, 237, 237);
+}
+
+.popup_visible {
+  display: flex;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.popup__content {
+  padding: 10px;
+  text-align: center;
+}
+
+.popup__title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.popup__message {
+  margin: 0;
+  font-size: 14px;
+
+}
+
+.popup__message_type_error {
+  color: rgb(95, 33, 32);
+}
+
+.popup__message_type_success {
+  color: rgb(30, 70, 32)
+}

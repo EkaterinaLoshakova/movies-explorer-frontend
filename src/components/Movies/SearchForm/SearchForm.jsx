@@ -3,21 +3,28 @@ import searchIcon from "../../../images/serach.svg"
 import {ReactComponent as CheckboxOn} from "../../../images/check-on.svg";
 import {ReactComponent as CheckboxOff} from "../../../images/check-off.svg";
 import {useState} from "react";
+import {Popup} from "../../Popup/Popup";
 
-export function SearchForm() {
-  const [input, setInput] = useState('');
-  const [isShort, setIsShort] = useState(false);
+export function SearchForm({onSearch, input, onChange, isShort, onCheckboxChange}) {
+  const [isEmpty, setIsEmpty] = useState(false);
 
-  function handleChange(e) {
-    setInput(() => (e.target.value))
+  async function handleCheckboxChange(e) {
+    await onCheckboxChange(e);
+    e.target.form.requestSubmit();
   }
 
-  function handleCheckboxChange(e) {
-    setIsShort(() => (e.target.checked))
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!input.trim()) {
+      setIsEmpty(true);
+      setTimeout(() => setIsEmpty(false), 5000);
+    } else {
+      onSearch(input, isShort);
+    }
   }
 
   return (
-    <form className="search-form">
+    <form className="search-form" noValidate onSubmit={handleSubmit}>
       <div className="search-form__input-container">
         <img className="search-form__search-icon" alt="Поиск" src={searchIcon}/>
         <input
@@ -27,7 +34,7 @@ export function SearchForm() {
           placeholder="Фильм"
           className="search-form__search-input"
           value={input || ''}
-          onChange={handleChange}
+          onChange={onChange}
         />
         <button type="submit" className="search-form__submit button-hover"/>
       </div>
@@ -46,6 +53,7 @@ export function SearchForm() {
           :
           <CheckboxOff className="search-form__checkbox-svg"/>}
         Короткометражки</label>
+      {isEmpty && <Popup message="Нужно ввести ключевое слово" severity="Error"/>}
     </form>
   )
 }

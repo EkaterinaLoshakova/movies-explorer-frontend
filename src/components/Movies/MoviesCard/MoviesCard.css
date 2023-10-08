@@ -6,6 +6,7 @@
   overflow: hidden;
   background-color: #FFFFFF;
   max-width: 270px;
+  width: 100%;
 }
 .card__title-container {
   display: flex;
@@ -21,6 +22,9 @@
   font-weight: 500;
   line-height: 16px;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .card__image {
   display: flex;
