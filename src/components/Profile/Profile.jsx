@@ -14,7 +14,7 @@ import {
 } from "../../utils/constants";
 import {mainApi} from "../../utils/MainApi";
 
-export function Profile({setCurrentUser}) {
+export function Profile({setCurrentUser, setBeatMoviesList}) {
   const [isSubmitPresent, setIsSubmitPresent] = useState(false);
   const [alert, setAlert] = useState({level: "blank", message: ""});
   const user = useContext(CurrentUserContext);
@@ -56,6 +56,7 @@ export function Profile({setCurrentUser}) {
   function logout() {
     setCurrentUser(() => ({name: "", email: "", isLoggedIn: false}));
     localStorage.clear();
+    setBeatMoviesList([]);
     navigate('/', {replace: true});
   }
 

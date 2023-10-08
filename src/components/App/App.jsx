@@ -95,7 +95,7 @@ export function App() {
             element={Movies} cardsAmount={cardsAmount} beatMoviesList={beatMoviesList}
             setBeatMoviesList={setBeatMoviesList}/>
           }/>
-          <Route path="/profile" element={<ProtectedRoute element={Profile} setCurrentUser={setCurrentUser}/>}/>
+          <Route path="/profile" element={<ProtectedRoute element={Profile} setCurrentUser={setCurrentUser} setBeatMoviesList={setBeatMoviesList}/>}/>
           <Route path="/saved-movies" element={<ProtectedRoute
             element={SavedMovies} cardsAmount={cardsAmount} beatMoviesList={beatMoviesList} setBeatMoviesList={setBeatMoviesList}/>}/>
           <Route path="*" element={<NotFound/>}/>
