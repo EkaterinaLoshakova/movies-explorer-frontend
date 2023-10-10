@@ -1,5 +1,5 @@
 import "./MoviesCardList.css"
-import {MoviesCard} from "../MoviesCard/MoviesCard";
+import {MoviesCard} from "./MoviesCard/MoviesCard";
 
 export function MoviesCardList({cards, onLike, onDislike, onDelete}) {
   return (

@@ -1,15 +1,38 @@
 import useFormAndValidation from "../../hooks/useFormAndValidation";
 import {Logo} from "../Logo/Logo";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {
+  AUTH_ERROR,
+  AUTH_STATUS,
+  CONFLICT_MESSAGE,
+  CONFLICT_STATUS,
+  INTERNAL_ERROR_STATUS,
+  INTERNAL_SERVER_ERROR,
+  LOGIN_ERROR,
+} from "../../utils/constants";
+import {useState} from "react";
 
-export function Login({setCurrentUser}) {
-  const {values, handleChange, errors, isValid} = useFormAndValidation();
-  const navigate = useNavigate();
+export function Login({isLogin}) {
+  const {values, handleChange, errors, isValid, setIsValid} = useFormAndValidation();
+  const [error, setError] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
-    setCurrentUser((prev) => ({...prev, isLoggedIn: true}));
-    navigate("/movies");
+    // Block submit
+    setIsValid(p => !p);
+    isLogin(values.email, values.password)
+      .catch(error => {
+          if (error === CONFLICT_STATUS) {
+            setError(CONFLICT_MESSAGE);
+          } else if (error === AUTH_STATUS) {
+            setError(AUTH_ERROR);
+          } else if (error === INTERNAL_ERROR_STATUS) {
+            setError(INTERNAL_SERVER_ERROR);
+          } else {
+            setError(LOGIN_ERROR);
+          }
+        }
+      )
   }
 
   return (
@@ -49,7 +72,7 @@ export function Login({setCurrentUser}) {
             <span className="registration__input-error">{errors["password"]}</span>
           </label>
           <div className="registration__footer">
-            <p className="registration__response-error"></p>
+            <p className="registration__response-error">{error}</p>
             <button
               type="submit"
               className={`registration__submit button-hover${isValid ? '' : ' registration__submit_disabled'}`}

@@ -1,26 +1,30 @@
 import "./SearchForm.css"
-import searchIcon from "../../../images/serach.svg"
-import {ReactComponent as CheckboxOn} from "../../../images/check-on.svg";
-import {ReactComponent as CheckboxOff} from "../../../images/check-off.svg";
+import searchIcon from "../../images/serach.svg"
+import {ReactComponent as CheckboxOn} from "../../images/check-on.svg";
+import {ReactComponent as CheckboxOff} from "../../images/check-off.svg";
 import {useState} from "react";
-import {Popup} from "../../Popup/Popup";
+import {Popup} from "../Popup/Popup";
 
 export function SearchForm({onSearch, input, onChange, isShort, onCheckboxChange}) {
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
 
   async function handleCheckboxChange(e) {
-    await onCheckboxChange(e);
-    e.target.form.requestSubmit();
+    setIsInputDisabled(() => true);
+    await onCheckboxChange(e, input);
+    setIsInputDisabled(()=> false);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setIsInputDisabled(() => true)
     if (!input.trim()) {
       setIsEmpty(true);
       setTimeout(() => setIsEmpty(false), 5000);
     } else {
-      onSearch(input, isShort);
+      await onSearch(input, isShort);
     }
+    setIsInputDisabled(()=> false);
   }
 
   return (
@@ -35,8 +39,9 @@ export function SearchForm({onSearch, input, onChange, isShort, onCheckboxChange
           className="search-form__search-input"
           value={input || ''}
           onChange={onChange}
+          disabled={isInputDisabled}
         />
-        <button type="submit" className="search-form__submit button-hover"/>
+        <button type="submit" className="search-form__submit button-hover" disabled={isInputDisabled}/>
       </div>
       <label className="search-form__checkbox-container button-hover">
         <input
@@ -46,6 +51,7 @@ export function SearchForm({onSearch, input, onChange, isShort, onCheckboxChange
           id="checkbox"
           onChange={handleCheckboxChange}
           checked={isShort}
+          disabled={isInputDisabled}
         />
         {isShort
           ?

@@ -4,32 +4,68 @@ import {useContext, useEffect, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import useFormAndValidation from "../../hooks/useFormAndValidation";
 import {useNavigate} from "react-router-dom";
-import {PROFILE_UPDATE_ERROR} from "../../utils/constants";
+import {
+  CONFLICT_MESSAGE,
+  CONFLICT_STATUS,
+  INTERNAL_ERROR_STATUS,
+  INTERNAL_SERVER_ERROR,
+  PROFILE_UPDATE_ERROR,
+  PROFILE_UPDATE_SUCCESS
+} from "../../utils/constants";
+import {mainApi} from "../../utils/MainApi";
 
-export function Profile({setCurrentUser}) {
+export function Profile({setCurrentUser, setBeatMoviesList, setSavedList}) {
   const [isSubmitPresent, setIsSubmitPresent] = useState(false);
-  const [alert, setAlert] = useState({level:"blank", message: ""});
+  const [alert, setAlert] = useState({level: "blank", message: ""});
   const user = useContext(CurrentUserContext);
   const {values, handleChange, errors, isValid, setValues, setIsValid} = useFormAndValidation();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    setAlert({level: "error", message: PROFILE_UPDATE_ERROR})
-    setIsValid(false);
+    // Block submit
+    setIsValid(p => !p);
+    mainApi.setUserData(values.name, values.email)
+      .then(({name, email}) => {
+        setCurrentUser((prev) => ({...prev, name: name, email: email}))
+        setAlert({level: "info", message: PROFILE_UPDATE_SUCCESS});
+        setIsSubmitPresent(false);
+        setIsValid(false);
+      })
+      .catch(error => {
+        if (error === CONFLICT_STATUS) {
+          setAlert({level: "error", message: CONFLICT_MESSAGE});
+          setIsValid(false);
+        } else if (error === INTERNAL_ERROR_STATUS) {
+          setAlert({level: "error", message: INTERNAL_SERVER_ERROR});
+        } else {
+          setAlert({level: "error", message: PROFILE_UPDATE_ERROR})
+        }
+      })
   }
 
   function handleInput(e) {
     handleChange(e);
     const {name, value} = e.target
-    if ((name === "name" && value === user.name) || (name === "email" && value === user.email)) {
+    if ((name === "name" && value === user.name) && (values["email"] === user.email)) {
+      setIsValid(false);
+    }
+    if ((name === "email" && value === user.email) && (values["name"] === user.name)) {
       setIsValid(false);
     }
   }
 
   function logout() {
-    setCurrentUser((prev) => ({...prev, isLoggedIn: false}));
+    setCurrentUser(() => ({name: "", email: "", isLoggedIn: false}));
+    localStorage.clear();
+    setBeatMoviesList([]);
+    setSavedList([]);
     navigate('/', {replace: true});
+  }
+
+  function handleEdit() {
+    setIsSubmitPresent(p => !p);
+    setAlert({level: "blank", message: ""});
   }
 
   useEffect(() => {
@@ -45,6 +81,7 @@ export function Profile({setCurrentUser}) {
           <label className="profile__form-label ">
             <span className="profile__input-label">Имя</span>
             <input
+              disabled={!isSubmitPresent}
               type="text"
               name="name"
               required
@@ -60,6 +97,7 @@ export function Profile({setCurrentUser}) {
           <label className="profile__form-label profile__form-label_padding_top">
             <span className="profile__input-label">E-mail</span>
             <input
+              disabled={!isSubmitPresent}
               type="email"
               name="email"
               required
@@ -81,9 +119,10 @@ export function Profile({setCurrentUser}) {
                 className={`profile__submit button-hover${isValid ? '' : ' profile__submit_disabled'}`}
                 disabled={!isValid}>Сохранить
               </button>
-            :
+              :
               <>
-                <button type="button" className="profile__edit button-hover" onClick={() => setIsSubmitPresent(p => !p)}>
+                <button type="button" className="profile__edit button-hover"
+                        onClick={handleEdit}>
                   Редактировать
                 </button>
                 <button type="button" className="profile__logout button-hover" onClick={logout}>
