@@ -12,4 +12,4 @@ https://diploma.kattrin.nomoredomainsrocks.ru
 
 ## Pull request
 
-https://github.com/EkaterinaLoshakova/movies-explorer-frontend/pull/2
+https://github.com/EkaterinaLoshakova/movies-explorer-frontend/pull/3
