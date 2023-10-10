@@ -33,7 +33,8 @@ export function App() {
     isLoggedIn: !!localStorage.getItem("jwt")
   });
   const [cardsAmount, setCardsAmount] = useState({init: 16, more: 4});
-  const [beatMoviesList, setBeatMoviesList] = useState([])
+  const [beatMoviesList, setBeatMoviesList] = useState([]);
+  const [savedList, setSavedList] = useState([]);
   const navigate = useNavigate();
 
 
@@ -93,11 +94,14 @@ export function App() {
           <Route path="/signin" element={<RedirectAuth element={Login} isLogin={handleLoginSubmit} setCurrentUser={setCurrentUser}/>}/>
           <Route path="/movies" element={<ProtectedRoute
             element={Movies} cardsAmount={cardsAmount} beatMoviesList={beatMoviesList}
-            setBeatMoviesList={setBeatMoviesList}/>
+            setBeatMoviesList={setBeatMoviesList} savedList={savedList} setSavedList={setSavedList}/>
           }/>
           <Route path="/profile" element={<ProtectedRoute element={Profile} setCurrentUser={setCurrentUser} setBeatMoviesList={setBeatMoviesList}/>}/>
           <Route path="/saved-movies" element={<ProtectedRoute
-            element={SavedMovies} cardsAmount={cardsAmount} beatMoviesList={beatMoviesList} setBeatMoviesList={setBeatMoviesList}/>}/>
+            element={SavedMovies} cardsAmount={cardsAmount}
+            beatMoviesList={beatMoviesList} setBeatMoviesList={setBeatMoviesList}
+            savedList={savedList} setSavedList={setSavedList}
+          />}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </CurrentUserContext.Provider>

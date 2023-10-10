@@ -23,6 +23,8 @@ export function Profile({setCurrentUser, setBeatMoviesList}) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    // Block submit
+    setIsValid(p => !p);
     mainApi.setUserData(values.name, values.email)
       .then(({name, email}) => {
         setCurrentUser((prev) => ({...prev, name: name, email: email}))

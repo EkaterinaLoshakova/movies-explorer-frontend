@@ -12,11 +12,13 @@ import {
 } from "../../utils/constants";
 
 export function Register({isRegister}) {
-  const {values, handleChange, errors, isValid} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid} = useFormAndValidation();
   const [error, setError] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
+    // Block submit
+    setIsValid(p => !p);
     isRegister(values.name, values.email, values.password)
       .catch(error => {
         if (error === CONFLICT_STATUS) {

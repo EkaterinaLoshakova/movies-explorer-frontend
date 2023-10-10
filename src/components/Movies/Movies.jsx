@@ -1,18 +1,18 @@
 import "./Movies.css"
 import {Header} from "../Header/Header";
-import {SearchForm} from "./SearchForm/SearchForm";
-import {MoviesCardList} from "./MoviesCardList/MoviesCardList";
+import {SearchForm} from "../SearchForm/SearchForm";
+import {MoviesCardList} from "../MoviesCardList/MoviesCardList";
 import {Footer} from "../Footer/Footer";
 import {useEffect, useState} from "react";
 import {moviesApi} from "../../utils/MoviesApi";
 import {mainApi} from "../../utils/MainApi";
 import {addSaved, filterMovies, Movie} from "../../utils/movies";
-import Preloader from "./Preloader/Preloader";
+import Preloader from "../Preloader/Preloader";
 import {EMPTY_SEARCH, IS_SHORT, MOVIES_LIST, NETWORK_ERROR, SEARCH} from "../../utils/constants";
 import useSearchForm from "../../hooks/useForm";
 import {Popup} from "../Popup/Popup";
 
-export function Movies({cardsAmount, beatMoviesList, setBeatMoviesList}) {
+export function Movies({cardsAmount, beatMoviesList, setBeatMoviesList, savedList, setSavedList}) {
   const [cardList, setCardList] = useState([]);
   const [isMorePresent, setIsMorePresent] = useState(false);
   const [cardsCounter, setCardsCounter] = useState(0);
@@ -78,7 +78,13 @@ export function Movies({cardsAmount, beatMoviesList, setBeatMoviesList}) {
       setCardList(updatedMoviesList);
       localStorage.setItem(MOVIES_LIST, JSON.stringify(updatedMoviesList));
     }
-    setBeatMoviesList(beatMoviesList.map((movie) => (movie.id === card.id) ? card : movie))
+    setBeatMoviesList(beatMoviesList.map((movie) => (movie.id === card.id) ? card : movie));
+  }
+
+  function handleCheckbox(e, input) {
+    handleCheckboxChange(e);
+    const isShort = e.target.checked;
+    handleMovies(input, isShort, beatMoviesList)
   }
 
   function likeMovie(card) {
@@ -87,6 +93,9 @@ export function Movies({cardsAmount, beatMoviesList, setBeatMoviesList}) {
         card.saved = true;
         card.savedMovieId = data["_id"];
         updateCardList(card);
+        if (savedList) {
+          setSavedList([...savedList, data]);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -100,6 +109,9 @@ export function Movies({cardsAmount, beatMoviesList, setBeatMoviesList}) {
       .then((data) => {
         card.saved = false;
         updateCardList(card);
+        if (savedList) {
+          setSavedList(savedList.filter(movie => movie["_id"] !== card.savedMovieId))
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -129,7 +141,7 @@ export function Movies({cardsAmount, beatMoviesList, setBeatMoviesList}) {
           input={input}
           isShort={isShort}
           onChange={handleChange}
-          onCheckboxChange={handleCheckboxChange}
+          onCheckboxChange={handleCheckbox}
         />
         {loading ? <Preloader/> : cardList && <MoviesCardList
           cards={cardList.slice(0, cardsCounter)}

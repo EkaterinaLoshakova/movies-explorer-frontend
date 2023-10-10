@@ -18,6 +18,13 @@ export function filterMovies(pattern, isShort, beatMovies) {
   })
 }
 
+export function filterByCheckbox(isShort, moviesList) {
+  return moviesList.filter((movie) => {
+    return isShort ? movie.duration <= SHORT_MOVIE : movie
+  })
+}
+
+
 export class Movie {
   constructor(movie) {
     this.country = movie.country;
